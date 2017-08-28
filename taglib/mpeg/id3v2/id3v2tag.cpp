@@ -764,13 +764,11 @@ void ID3v2::Tag::parse(const ByteVector &origData)
 
     // Checks to make sure that frame parsed correctly.
 
-    if(frame->size() <= 0) {
-      delete frame;
-      return;
-    }
+
 
     frameDataPosition += frame->size() + Frame::headerSize(d->header.majorVersion());
-    addFrame(frame);
+    if(frame->size() > 0) 
+        addFrame(frame);
   }
 
   d->factory->rebuildAggregateFrames(this);
